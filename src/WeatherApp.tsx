@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { IWeather } from "./interfaces/weather.interface";
 
 export const WeatherApp = () => {
     
@@ -7,7 +8,7 @@ export const WeatherApp = () => {
     const difKelvin: number = 273.15
 
     const [city, setCity] = useState('');
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<IWeather>();
     
     const HandleChangeCity = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setCity(e.target.value);
@@ -44,7 +45,7 @@ export const WeatherApp = () => {
                 data && (
                     <div>
                         <h2>{ data.name }</h2>
-                        <p>Temperatura: {parseInt(data?.main?.temp - difKelvin)}°C</p>
+                        <p>Temperatura: {Number((data.main.temp - difKelvin).toFixed(2))}°C</p>
                         <p>Condición meterologica: {data.weather[0].description}</p>
                         <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />
                     </div>
